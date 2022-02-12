@@ -1,4 +1,5 @@
 import 'package:api_future/model/user_model.dart';
+import 'package:api_future/screens/detail_page.dart';
 import 'package:api_future/services/user_service.dart';
 import 'package:flutter/material.dart';
 
@@ -17,12 +18,23 @@ class Homepage extends StatelessWidget {
             if (snapshot.hasData) {
               return ListView(
                 children: [
-                  ...snapshot.data!.map((e) => ListTile(
-                        title: Text(e.firstname),
-                        subtitle: Text(e.lastname),
-                        
-                        trailing: CircleAvatar(
-                          backgroundImage: NetworkImage(e.avatar),
+                  ...snapshot.data!.map((e) => InkWell(
+                        onTap: (() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailPage(
+                                e: e,
+                              ),
+                            ),
+                          );
+                        }),
+                        child: ListTile(
+                          title: Text(e.firstname),
+                          subtitle: Text(e.lastname),
+                          trailing: CircleAvatar(
+                            backgroundImage: NetworkImage(e.avatar),
+                          ),
                         ),
                       ))
                 ],
