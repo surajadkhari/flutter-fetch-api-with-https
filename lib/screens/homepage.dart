@@ -10,6 +10,13 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  var apiService;
+  @override
+  void initState() {
+    super.initState();
+    apiService = ApiService().getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +24,7 @@ class _HomepageState extends State<Homepage> {
           title: const Text('User Profile'),
         ),
         body: FutureBuilder<List<UserModel>>(
-          future: ApiService().getUser(),
+          future: apiService,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView(
